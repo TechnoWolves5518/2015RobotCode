@@ -23,7 +23,7 @@ import edu.wpi.first.wpilibj.Timer;
  * don't. Unless you know what you are doing, complex code will be much more difficult under
  * this system. Use IterativeRobot or Command-Based instead if you're new.
  */
-public class Robot extends SampleRobot {
+public class Robot extends SampleRobot { // SampleRobot doesn't call functions periodically
 	
 	private static final int FRONT_LEFT_MOTOR = 2;
 	private static final int REAR_LEFT_MOTOR = 1;
