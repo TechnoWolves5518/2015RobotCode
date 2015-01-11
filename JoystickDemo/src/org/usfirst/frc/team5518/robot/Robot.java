@@ -37,7 +37,7 @@ public class Robot extends SampleRobot {
         myRobot = new RobotDrive(FRONT_LEFT_MOTOR, REAR_LEFT_MOTOR,
         		FRONT_RIGHT_MOTOR, REAR_RIGHT_MOTOR);
         myRobot.setExpiration(0.1);
-        stick = new Joystick(0);
+        stick = new Joystick(0); // set the stick to refer to joystick #0
     }
 
     /**
