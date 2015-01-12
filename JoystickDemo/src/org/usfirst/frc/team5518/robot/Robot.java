@@ -26,18 +26,18 @@ import edu.wpi.first.wpilibj.Timer;
 public class Robot extends SampleRobot { // SampleRobot doesn't call functions periodically
 	
 	private static final int FRONT_LEFT_MOTOR = 2;
-	private static final int REAR_LEFT_MOTOR = 1;
-	private static final int FRONT_RIGHT_MOTOR = 3;
+	private static final int REAR_LEFT_MOTOR = 1; 
+	private static final int FRONT_RIGHT_MOTOR = 3; 
 	private static final int REAR_RIGHT_MOTOR = 0;
-	
+
     RobotDrive myRobot;
     Joystick stick;
-
+    
     public Robot() {	// initialize variables in constructor
+    	stick = new Joystick(0); // set the stick to refer to joystick #0    	
         myRobot = new RobotDrive(FRONT_LEFT_MOTOR, REAR_LEFT_MOTOR,
         		FRONT_RIGHT_MOTOR, REAR_RIGHT_MOTOR);
         myRobot.setExpiration(0.1);
-        stick = new Joystick(0); // set the stick to refer to joystick #0
     }
 
     /**
@@ -56,7 +56,7 @@ public class Robot extends SampleRobot { // SampleRobot doesn't call functions p
     public void operatorControl() {	// function for teleop mode
         myRobot.setSafetyEnabled(true);
         while (isOperatorControl() && isEnabled()) {
-            myRobot.arcadeDrive(stick); // drive with arcade style (use right stick)
+            myRobot.arcadeDrive(-stick.getY(), -stick.getX()); // drive with arcade style (use right stick)
             Timer.delay(0.005);		// wait for a motor update time
         }
     }
