@@ -1,6 +1,7 @@
 package org.usfirst.frc.team5518.robot;
 
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.buttons.JoystickButton;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -44,11 +45,8 @@ public class OI {
 		// instantiate Joystick variable
 		stick = new Joystick(0);
 		
-		// instantiate joystick buttons here
+		// instantiate joystick buttons here & connect commands to them
 		buttonsInit();
-		
-		// connect commands to joystick buttons
-		buttonsExec();
 		
 	}
 	
@@ -58,11 +56,10 @@ public class OI {
 	
 	private void buttonsInit() {
 		
-	}
-	
-	private void buttonsExec() {
+		JoystickButton a = new JoystickButton(stick, 0);
 		
 	}
+	
 	
 	public void setJoystick(int port) {
 		stick = new Joystick(port);

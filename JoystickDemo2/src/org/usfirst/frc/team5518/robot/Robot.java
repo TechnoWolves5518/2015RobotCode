@@ -5,6 +5,7 @@ import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import org.usfirst.frc.team5518.robot.commands.ArcadeDriveJoystick;
 import org.usfirst.frc.team5518.robot.commands.AutonomousCmd;
@@ -25,6 +26,7 @@ public class Robot extends IterativeRobot {
 	public static OI oi;
 
     Command autonomousCommand;
+    Command arcadeDriveCmd;
 
     /**
      * This function is run when the robot is first started up and should be
@@ -34,11 +36,17 @@ public class Robot extends IterativeRobot {
     	
     	// initialize all subsystems and important classes
 		oi = new OI();
-		autoSys = new AutonomousSys();
+		//autoSys = new AutonomousSys();
 		driveSys = new DrivingSys();
 		
         // instantiate the command used for the autonomous period
         autonomousCommand = new AutonomousCmd();
+        
+        // instantiate cmd used for teleop period
+        arcadeDriveCmd = new ArcadeDriveJoystick();
+        
+        // Show what cmd the susbsystem is running on SmartDashboard
+        SmartDashboard.putData(driveSys);
     }
 	
 	public void disabledPeriodic() {
@@ -64,6 +72,9 @@ public class Robot extends IterativeRobot {
         // continue until interrupted by another command, remove
         // this line or comment it out.
         if (autonomousCommand != null) autonomousCommand.cancel();
+        
+        // start command for driving in telop
+        arcadeDriveCmd.start();
     }
 
     /**
@@ -71,7 +82,7 @@ public class Robot extends IterativeRobot {
      * You can use it to reset subsystems before shutting down.
      */
     public void disabledInit(){
-
+    	
     }
 
     /**

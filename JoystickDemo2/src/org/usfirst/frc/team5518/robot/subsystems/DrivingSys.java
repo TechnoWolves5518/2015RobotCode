@@ -26,10 +26,6 @@ public class DrivingSys extends Subsystem {
         setDefaultCommand(new ArcadeDriveJoystick());
     }
     
-    public void drive(Joystick stick) {
-    	robotDrive.arcadeDrive(stick);
-    }
-    
     public void drive(GenericHID moveStick, final int moveAxis,
     		GenericHID rotateStick, final int rotateAxis) {
     	robotDrive.arcadeDrive(moveStick, moveAxis, rotateStick, rotateAxis);

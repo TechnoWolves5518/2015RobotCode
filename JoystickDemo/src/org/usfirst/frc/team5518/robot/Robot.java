@@ -2,10 +2,15 @@
 package org.usfirst.frc.team5518.robot;
 
 
-import edu.wpi.first.wpilibj.SampleRobot;
-import edu.wpi.first.wpilibj.RobotDrive;
+import edu.wpi.first.wpilibj.Compressor;
+import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.PowerDistributionPanel;
+import edu.wpi.first.wpilibj.RobotDrive;
+import edu.wpi.first.wpilibj.SampleRobot;
 import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.livewindow.LiveWindow;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * This is a demo program showing the use of the RobotDrive class.
@@ -25,19 +30,31 @@ import edu.wpi.first.wpilibj.Timer;
  */
 public class Robot extends SampleRobot { // SampleRobot doesn't call functions periodically
 	
-	private static final int FRONT_LEFT_MOTOR = 2;
-	private static final int REAR_LEFT_MOTOR = 1; 
-	private static final int FRONT_RIGHT_MOTOR = 3; 
-	private static final int REAR_RIGHT_MOTOR = 0;
-
-    RobotDrive myRobot;
-    Joystick stick;
+    private RobotDrive myRobot;
+    private Joystick stick;
+    
+    private PowerDistributionPanel pdp;
+    
+    private DoubleSolenoid solenoid;
+    private Compressor compressor;
     
     public Robot() {	// initialize variables in constructor
-    	stick = new Joystick(0); // set the stick to refer to joystick #0    	
-        myRobot = new RobotDrive(FRONT_LEFT_MOTOR, REAR_LEFT_MOTOR,
-        		FRONT_RIGHT_MOTOR, REAR_RIGHT_MOTOR);
-        myRobot.setExpiration(0.1);
+    	stick = new Joystick(RobotMap.JOYSTICK_PORT); // set the stick to refer to joystick #0    	
+        myRobot = new RobotDrive(RobotMap.FRONT_LEFT_MOTOR, RobotMap.REAR_LEFT_MOTOR,
+        		RobotMap.FRONT_RIGHT_MOTOR, RobotMap.REAR_RIGHT_MOTOR);
+        myRobot.setExpiration(RobotDrive.kDefaultExpirationTime);
+        
+        pdp = new PowerDistributionPanel();
+        
+        compressor = new Compressor(); // Compressor is controlled automatically by PCM
+        
+        solenoid = new DoubleSolenoid(RobotMap.SOLENOID_PCM_PORT1, RobotMap.SOLENOID_PCM_PORT2); // PCM port #0 & #1
+        /*
+         * solenoid.set(DoubleSolenoid.Value.kOff);
+         * solenoid.set(DoubleSolenoid.Value.kForward);
+         * solenoid.set(DoubleSolenoid.Value.kReverse);
+         */
+        
     }
 
     /**
@@ -55,9 +72,13 @@ public class Robot extends SampleRobot { // SampleRobot doesn't call functions p
      */
     public void operatorControl() {	// function for teleop mode
         myRobot.setSafetyEnabled(true);
+        compressor.setClosedLoopControl(true);
+        
         while (isOperatorControl() && isEnabled()) {
-            myRobot.arcadeDrive(-stick.getY(), -stick.getX()); // drive with arcade style (use right stick)
+            myRobot.arcadeDrive(-stick.getY()/RobotMap.SENSITIVITY_BUFFER, -stick.getX()/RobotMap.SENSITIVITY_BUFFER); // drive with arcade style (use right stick)
+            LiveWindow.run();
             Timer.delay(0.005);		// wait for a motor update time
+            log();
         }
     }
 
@@ -65,6 +86,14 @@ public class Robot extends SampleRobot { // SampleRobot doesn't call functions p
      * Runs during test mode
      */
     public void test() {
-    	
+    	while (isTest() && isEnabled()) {
+    		LiveWindow.run();
+        	Timer.delay(0.005);
+    	}
+    }
+    
+    private void log() {
+    	SmartDashboard.putNumber("PDP Current", pdp.getTotalCurrent()); // log current in PDP
+    	SmartDashboard.putNumber("PDP Temperature", pdp.getTemperature()); // log temperature in PDP
     }
 }
