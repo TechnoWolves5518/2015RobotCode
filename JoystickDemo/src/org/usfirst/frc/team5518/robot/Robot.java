@@ -49,6 +49,8 @@ public class Robot extends SampleRobot { // SampleRobot doesn't call functions p
         compressor = new Compressor(); // Compressor is controlled automatically by PCM
         
         solenoid = new DoubleSolenoid(RobotMap.SOLENOID_PCM_PORT1, RobotMap.SOLENOID_PCM_PORT2); // PCM port #0 & #1
+        solenoid.set(DoubleSolenoid.Value.kForward);
+         
         /*
          * solenoid.set(DoubleSolenoid.Value.kOff);
          * solenoid.set(DoubleSolenoid.Value.kForward);
@@ -97,3 +99,4 @@ public class Robot extends SampleRobot { // SampleRobot doesn't call functions p
     	SmartDashboard.putNumber("PDP Temperature", pdp.getTemperature()); // log temperature in PDP
     }
 }
+;

@@ -6,6 +6,8 @@ import org.usfirst.frc.team5518.robot.commands.ArcadeDriveJoystick;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.RobotDrive;
+import edu.wpi.first.wpilibj.SpeedController;
+import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 /**
@@ -18,7 +20,7 @@ public class DrivingSys extends Subsystem {
 	public DrivingSys() {
 		super();
 		robotDrive = new RobotDrive(RobotMap.FRONT_LEFT_MOTOR, RobotMap.REAR_LEFT_MOTOR, 
-				RobotMap.FRONT_RIGHT_MOTOR, RobotMap.FRONT_LEFT_MOTOR);
+				RobotMap.FRONT_RIGHT_MOTOR, RobotMap.REAR_RIGHT_MOTOR);
 	}
 
     public void initDefaultCommand() {

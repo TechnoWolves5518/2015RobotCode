@@ -2,6 +2,7 @@
 package org.usfirst.frc.team5518.robot;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
+import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
@@ -24,6 +25,8 @@ public class Robot extends IterativeRobot {
 	public static AutonomousSys autoSys;
 	public static DrivingSys driveSys;
 	public static OI oi;
+	
+	private PowerDistributionPanel pdp;
 
     Command autonomousCommand;
     Command arcadeDriveCmd;
@@ -40,13 +43,16 @@ public class Robot extends IterativeRobot {
 		driveSys = new DrivingSys();
 		
         // instantiate the command used for the autonomous period
-        autonomousCommand = new AutonomousCmd();
+        //autonomousCommand = new AutonomousCmd();
         
         // instantiate cmd used for teleop period
         arcadeDriveCmd = new ArcadeDriveJoystick();
         
         // Show what cmd the susbsystem is running on SmartDashboard
         SmartDashboard.putData(driveSys);
+        
+        // Initialize Power Distribution Panel
+        pdp = new PowerDistributionPanel();
     }
 	
 	public void disabledPeriodic() {
@@ -64,6 +70,7 @@ public class Robot extends IterativeRobot {
     public void autonomousPeriodic() {
         Scheduler.getInstance().run();
         driveSys.log();
+        log();
     }
 
     public void teleopInit() {
@@ -91,6 +98,7 @@ public class Robot extends IterativeRobot {
     public void teleopPeriodic() {
         Scheduler.getInstance().run();
         driveSys.log();
+        log();
     }
     
     /**
@@ -99,5 +107,16 @@ public class Robot extends IterativeRobot {
     public void testPeriodic() {
         LiveWindow.run();
         driveSys.log();
+        log();
     }
+    
+    private void log() {
+    	SmartDashboard.putNumber("PDP Current", pdp.getTotalCurrent()); // log current in PDP
+    	SmartDashboard.putNumber("PDP Temperature", pdp.getTemperature()); // log temperature in PDP
+    	SmartDashboard.putNumber("PDP Voltage", pdp.getVoltage()); // log voltage in PDP
+    	SmartDashboard.putNumber("PDP Total Current", pdp.getTotalCurrent()); // total current in PDP
+    	SmartDashboard.putNumber("PDP Total Energy", pdp.getTotalEnergy()); // total energy in PDP
+    	SmartDashboard.putNumber("PDP Total Power", pdp.getTotalPower()); // total power in PDP
+    }
+    
 }
