@@ -1,6 +1,9 @@
 
 package org.usfirst.frc.team5518.robot;
 
+import edu.wpi.first.wpilibj.CameraServer;
+import edu.wpi.first.wpilibj.Compressor;
+import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.command.Command;
@@ -27,6 +30,9 @@ public class Robot extends IterativeRobot {
 	public static OI oi;
 	
 	private PowerDistributionPanel pdp;
+	private Compressor compressor;
+	private DoubleSolenoid solenoid;
+	private CameraServer camera;
 
     Command autonomousCommand;
     Command arcadeDriveCmd;
@@ -53,6 +59,17 @@ public class Robot extends IterativeRobot {
         
         // Initialize Power Distribution Panel
         pdp = new PowerDistributionPanel();
+        
+        // Compressor is controlled automatically by PCM
+        compressor = new Compressor();
+        
+        solenoid = new DoubleSolenoid(0, 1);
+        solenoid.set(DoubleSolenoid.Value.kReverse);
+        
+        /*camera = CameraServer.getInstance();
+        camera.setQuality(50);
+        camera.startAutomaticCapture("cam0");*/
+        
     }
 	
 	public void disabledPeriodic() {
@@ -80,8 +97,11 @@ public class Robot extends IterativeRobot {
         // this line or comment it out.
         if (autonomousCommand != null) autonomousCommand.cancel();
         
+        compressor.setClosedLoopControl(true);
+        
         // start command for driving in telop
         arcadeDriveCmd.start();
+        
     }
 
     /**

@@ -23,8 +23,12 @@ public class RobotMap {
 	
 	public static final int JOYSTICK_PORT = 0;
 	public static final int SENSITIVITY_BUFFER = 1;
-	public static final int X_AXIS = 0;
-	public static final int Y_AXIS = 1;
+	public static final int LX_AXIS = 0;
+	public static final int LY_AXIS = 1;
+	public static final int LT_AXIS = 2;
+	public static final int RT_AXIS = 3;
+	public static final int RX_AXIS = 4;
+	public static final int RY_AXIS = 5;
 	public static final int Z_AXIS = 2;   // joystick rotate axis
 	public static final int TRIGGER_AXIS = 4;  // xbox trigger axis
 	public static final int BTN_TRIGGER = 0;   // joystick trigger button & xbox A button

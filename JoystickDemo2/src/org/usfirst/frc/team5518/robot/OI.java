@@ -56,7 +56,9 @@ public class OI {
 	
 	private void buttonsInit() {
 		
-		JoystickButton a = new JoystickButton(stick, 0);
+		JoystickButton a = new JoystickButton(stick, RobotMap.BTN_TRIGGER);
+		/*Double lt_axis = stick.getRawAxis(RobotMap.LT_AXIS);
+		Double rt_axis = stick.getRawAxis(RobotMap.RT_AXIS);*/
 		
 	}
 	
