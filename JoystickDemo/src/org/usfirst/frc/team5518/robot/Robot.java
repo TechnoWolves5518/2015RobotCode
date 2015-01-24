@@ -135,14 +135,14 @@ public class Robot extends SampleRobot { // SampleRobot doesn't call functions p
     }
     
     /**
-     * 
+     * Process video stream frame-by-frame and update the steam
      */
     private void cameraProcess() {
-		NIVision.IMAQdxGrab(session, frame, 1);
+		NIVision.IMAQdxGrab(session, frame, 1);  // grab frame from session
         NIVision.imaqDrawShapeOnImage(frame, frame, rect,
-                DrawMode.DRAW_VALUE, ShapeMode.SHAPE_OVAL, 0.0f);
+                DrawMode.DRAW_VALUE, ShapeMode.SHAPE_OVAL, 0.0f); // draw rectangle on frame
         
-        CameraServer.getInstance().setImage(frame);
+        CameraServer.getInstance().setImage(frame);  // send frame to stream in SmartDashboard
 	}
     }
 ;
