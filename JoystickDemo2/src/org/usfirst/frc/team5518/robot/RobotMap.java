@@ -22,7 +22,7 @@ public class RobotMap {
 	public static final int REAR_RIGHT_MOTOR = 0;
 	
 	public static final int JOYSTICK_PORT = 0;
-	public static final int SENSITIVITY_BUFFER = 1;
+	public static final double SENSITIVITY_BUFFER = 1.5d;
 	public static final int LX_AXIS = 0;
 	public static final int LY_AXIS = 1;
 	public static final int LT_AXIS = 2;

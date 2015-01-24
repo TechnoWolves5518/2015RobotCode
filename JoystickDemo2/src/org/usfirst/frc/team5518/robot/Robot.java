@@ -32,7 +32,7 @@ public class Robot extends IterativeRobot {
 	private PowerDistributionPanel pdp;
 	private Compressor compressor;
 	private DoubleSolenoid solenoid;
-	private CameraServer camera;
+	//private CameraServer camera;
 
     Command autonomousCommand;
     Command arcadeDriveCmd;
