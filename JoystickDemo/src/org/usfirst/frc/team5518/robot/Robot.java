@@ -15,6 +15,8 @@ import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.SampleRobot;
 import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.buttons.Button;
+import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -37,10 +39,12 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class Robot extends SampleRobot { // SampleRobot doesn't call functions periodically
 	
     private RobotDrive myRobot;
-    private Joystick stick;
     private PowerDistributionPanel pdp;
     private DoubleSolenoid solenoid;
     private Compressor compressor;
+    
+    private Joystick stick;
+    private Button button;
     
     //private CameraServer camera;
     private int session;
@@ -48,7 +52,9 @@ public class Robot extends SampleRobot { // SampleRobot doesn't call functions p
     private NIVision.Rect rect = new NIVision.Rect(10, 10, 100, 100);
     
     public Robot() {	// initialize variables in constructor
-    	stick = new Joystick(RobotMap.JOYSTICK_PORT); // set the stick to refer to joystick #0    	
+    	stick = new Joystick(RobotMap.JOYSTICK_PORT); // set the stick to refer to joystick #0
+    	button = new JoystickButton(stick, RobotMap.BTN_TRIGGER);
+    	
         myRobot = new RobotDrive(RobotMap.FRONT_LEFT_MOTOR, RobotMap.REAR_LEFT_MOTOR,
         		RobotMap.FRONT_RIGHT_MOTOR, RobotMap.REAR_RIGHT_MOTOR);
         myRobot.setExpiration(RobotDrive.kDefaultExpirationTime);  // set expiration time for motor movement if error occurs
@@ -144,5 +150,8 @@ public class Robot extends SampleRobot { // SampleRobot doesn't call functions p
         
         CameraServer.getInstance().setImage(frame);  // send frame to stream in SmartDashboard
 	}
+    
+    private void buttonCheck() {
+    	
     }
-;
+};
