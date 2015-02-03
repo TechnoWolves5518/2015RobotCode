@@ -1,6 +1,7 @@
 package org.usfirst.frc.team5518.function;
 
 import org.usfirst.frc.team5518.framework.RobotFunction;
+import org.usfirst.frc.team5518.robot.Robot;
 import org.usfirst.frc.team5518.robot.RobotMap;
 
 import edu.wpi.first.wpilibj.Compressor;
@@ -24,19 +25,22 @@ public class PneumaticControl extends RobotFunction {
 
 	@Override
 	public void start() {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	protected void inputHandler() {
-		// TODO Auto-generated method stub
-
+		
+		if (Robot.xOi.getJoystick().getRawAxis(RobotMap.XBOX_LT_AXIS) > 0.5d) {  // if left trigger pressed more than halfway
+			// open solenoid valves to make pistons go forward
+    		m_solenoid.set(DoubleSolenoid.Value.kForward);  
+    	} else if (Robot.xOi.getJoystick().getRawAxis(RobotMap.XBOX_LT_AXIS) <= 0.5d) {  // if left trigger pressed less or equal to halfway
+    		// open solenoid values to make pistons go backward
+    		m_solenoid.set(DoubleSolenoid.Value.kReverse);  
+    	} else {  // otherwise
+    		// close both solenoid valves and prevent air from flowing
+    		m_solenoid.set(DoubleSolenoid.Value.kOff); 
+    	}
+		
 	}
 
 	@Override
 	protected void outputHandler() {
-		// TODO Auto-generated method stub
 
 	}
 

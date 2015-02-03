@@ -25,6 +25,9 @@ public class Robot extends IterativeRobot {
      * used for any initialization code.
      */
 	
+	public static XControllerOI xOi;
+	public static JoystickOI jOi;
+	
 	private ArmElevator armElevator;
 	private DriveTrain driveTrain;
 	private PneumaticControl pneumaticControl;
@@ -32,6 +35,9 @@ public class Robot extends IterativeRobot {
 	private VisionTrack visionTrack;
 	
     public void robotInit() {
+    	
+    	xOi = new XControllerOI();
+    	jOi = new JoystickOI();
     	
     	armElevator = new ArmElevator("ArmElevator");
     	driveTrain = new DriveTrain("DriveTrain");
@@ -45,7 +51,29 @@ public class Robot extends IterativeRobot {
     	sensorTrack.initialize();
     	visionTrack.initialize();
     	
+    	SmartDashboard.putData(armElevator);
+    	SmartDashboard.putData(driveTrain);
+    	SmartDashboard.putData(pneumaticControl);
+    	SmartDashboard.putData(sensorTrack);
+    	SmartDashboard.putData(visionTrack);
     	SmartDashboard.putData(Scheduler.getInstance());
+    }
+    
+    /**
+     * This function is called when the disabled button is hit.
+     * You can use it to reset subsystems before shutting down.
+     */
+    public void disabledInit(){
+    	
+    }
+    
+    public void disabledPeriodic() {
+		Scheduler.getInstance().run();
+	}
+    
+    public void autonomousInit() {
+        // schedule the autonomous command (example)
+        //if (autonomousCommand != null) autonomousCommand.start();
     }
 
     /**
@@ -53,6 +81,14 @@ public class Robot extends IterativeRobot {
      */
     public void autonomousPeriodic() {
 
+    }
+    
+    public void teleopInit() {
+		// This makes sure that the autonomous stops running when
+        // teleop starts running. If you want the autonomous to 
+        // continue until interrupted by another command, remove
+        // this line or comment it out.
+        
     }
 
     /**

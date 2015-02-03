@@ -1,6 +1,11 @@
 package org.usfirst.frc.team5518.framework;
 
+import java.util.Enumeration;
+
 import edu.wpi.first.wpilibj.NamedSendable;
+import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.command.IllegalUseOfCommandException;
+import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.tables.ITable;
 
@@ -21,7 +26,6 @@ public abstract class RobotFunction implements NamedSendable {
 	
 	public abstract void initialize();
 	public abstract void start();
-	protected abstract void inputHandler();
 	protected abstract void outputHandler();
 	
 	protected void log() {
@@ -46,8 +50,8 @@ public abstract class RobotFunction implements NamedSendable {
     
     public void initTable(ITable table) {
         m_table = table;
-        if(table!=null) {
-            /*if (defaultCommand != null) {
+        /*if(table!=null) {
+            if (defaultCommand != null) {
                 table.putBoolean("hasDefault", true);
                 table.putString("default", defaultCommand.getName());
             } else {
@@ -58,14 +62,14 @@ public abstract class RobotFunction implements NamedSendable {
                 table.putString("command", currentCommand.getName());
             } else {
                 table.putBoolean("hasCommand", false);
-            }*/
-        	table.putBoolean("hasDefault", false);
-        	table.putBoolean("hasCommand", false);
-        }
+            }
+        } */
+        table.putBoolean("hasDefault", false);
+        table.putBoolean("hasCommand", false);
     }
 
     public ITable getTable() {
         return m_table;
     }
-	
+    
 }

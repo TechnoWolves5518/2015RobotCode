@@ -5,11 +5,26 @@ import edu.wpi.first.wpilibj.Joystick;
 public class JoystickOI {
 
 	private Joystick stick;
-	private Joystick xbox;
 	
 	public JoystickOI() {
+		
+		// instantiate joystick variable
 		stick = new Joystick(RobotMap.JOYSTICK_PORT1);
-		xbox = new Joystick(RobotMap.JOYSTICK_PORT2);
+		
+		// instantiate joystick buttons here & connect commands to them
+		mapControls();
+	}
+	
+	private void mapControls() {
+		
+	}
+	
+	public void setJoystick(int port) {
+		stick = new Joystick(port);
+	}
+	
+	public Joystick getJoystick() {
+		return stick;
 	}
 	
 }

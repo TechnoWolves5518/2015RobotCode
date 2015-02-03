@@ -38,12 +38,6 @@ public class VisionTrack extends RobotFunction {
 	}
 
 	@Override
-	protected void inputHandler() {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
 	protected void outputHandler() {
 		// TODO Auto-generated method stub
 
