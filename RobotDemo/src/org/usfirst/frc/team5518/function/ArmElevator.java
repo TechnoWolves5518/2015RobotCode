@@ -1,30 +1,35 @@
 package org.usfirst.frc.team5518.function;
 
 import org.usfirst.frc.team5518.framework.RobotFunction;
+import org.usfirst.frc.team5518.robot.RobotMap;
+
+import edu.wpi.first.wpilibj.Jaguar;
 
 public class ArmElevator extends RobotFunction {
+	
+	private Jaguar m_jaguar;
 
 	public ArmElevator(String name) {
 		super(name);
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override
 	public void initialize() {
-		// TODO Auto-generated method stub
-
+		m_jaguar = new Jaguar(RobotMap.LIFT_MOTOR);
+		m_jaguar.enableDeadbandElimination(true);
 	}
 
 	@Override
 	public void start() {
-		// TODO Auto-generated method stub
-
 	}
 
 	@Override
 	protected void outputHandler() {
-		// TODO Auto-generated method stub
 
+	}
+	
+	public void setJaguarSpeed(double speed) {
+		m_jaguar.set(speed);
 	}
 
 }

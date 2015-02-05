@@ -25,6 +25,7 @@ public class PneumaticControl extends RobotFunction {
 
 	@Override
 	public void start() {
+		m_compressor.setClosedLoopControl(true);
 		
 		if (Robot.xOi.getJoystick().getRawAxis(RobotMap.XBOX_LT_AXIS) > 0.5d) {  // if left trigger pressed more than halfway
 			// open solenoid valves to make pistons go forward

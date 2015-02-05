@@ -24,14 +24,20 @@ public class DriveTrain extends RobotFunction {
 
 	@Override
 	public void start() {
-		m_robot.mecanumDrive_Cartesian(-Robot.jOi.getJoystick().getX()/RobotMap.SENSITIVITY_BUFFER,
-				-Robot.jOi.getJoystick().getY()/RobotMap.SENSITIVITY_BUFFER, 
-				Robot.jOi.getJoystick().getTwist()/RobotMap.SENSITIVITY_BUFFER, 0);
+		m_robot.mecanumDrive_Cartesian(-Robot.jOi.getJoystick().getX(),
+				-Robot.jOi.getJoystick().getY(), 
+				Robot.jOi.getJoystick().getTwist(), 0);
 	}
 
 	@Override
 	protected void outputHandler() {
 		// TODO Auto-generated method stub
+	}
+	
+	// *********************** HELPER FUNCTIONS **************************
+	
+	public void setMaxPower(double power) {
+		m_robot.setMaxOutput(power);
 	}
 
 }

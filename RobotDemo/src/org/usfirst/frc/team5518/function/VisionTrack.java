@@ -39,7 +39,6 @@ public class VisionTrack extends RobotFunction {
 
 	@Override
 	protected void outputHandler() {
-		// TODO Auto-generated method stub
 
 	}
 

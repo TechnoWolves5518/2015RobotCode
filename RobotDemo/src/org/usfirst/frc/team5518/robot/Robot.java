@@ -51,6 +51,9 @@ public class Robot extends IterativeRobot {
     	sensorTrack.initialize();
     	visionTrack.initialize();
     	
+    	armElevator.setJaguarSpeed(0.1);
+    	driveTrain.setMaxPower(0.75);
+    	
     	SmartDashboard.putData(armElevator);
     	SmartDashboard.putData(driveTrain);
     	SmartDashboard.putData(pneumaticControl);
