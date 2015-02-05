@@ -31,8 +31,8 @@ public class Robot extends IterativeRobot {
 	private ArmElevator armElevator;
 	private DriveTrain driveTrain;
 	private PneumaticControl pneumaticControl;
-	private SensorTrack sensorTrack;
-	private VisionTrack visionTrack;
+	//private SensorTrack sensorTrack;
+	//private VisionTrack visionTrack;
 	
     public void robotInit() {
     	
@@ -42,14 +42,14 @@ public class Robot extends IterativeRobot {
     	armElevator = new ArmElevator("ArmElevator");
     	driveTrain = new DriveTrain("DriveTrain");
     	pneumaticControl = new PneumaticControl("PneumaticControl");
-    	sensorTrack = new SensorTrack("SensorTrack");
-    	visionTrack = new VisionTrack("VisionTrack");
+    	//sensorTrack = new SensorTrack("SensorTrack");
+    	//visionTrack = new VisionTrack("VisionTrack");
     	
     	armElevator.initialize();
     	driveTrain.initialize();
     	pneumaticControl.initialize();
-    	sensorTrack.initialize();
-    	visionTrack.initialize();
+    	//sensorTrack.initialize();
+    	//visionTrack.initialize();
     	
     	armElevator.setJaguarSpeed(0.1);
     	driveTrain.setMaxPower(0.75);
@@ -57,8 +57,8 @@ public class Robot extends IterativeRobot {
     	SmartDashboard.putData(armElevator);
     	SmartDashboard.putData(driveTrain);
     	SmartDashboard.putData(pneumaticControl);
-    	SmartDashboard.putData(sensorTrack);
-    	SmartDashboard.putData(visionTrack);
+    	//SmartDashboard.putData(sensorTrack);
+    	//SmartDashboard.putData(visionTrack);
     	SmartDashboard.putData(Scheduler.getInstance());
     }
     
@@ -101,8 +101,8 @@ public class Robot extends IterativeRobot {
     	armElevator.start();
     	driveTrain.start();
     	pneumaticControl.start();
-    	sensorTrack.start();
-    	visionTrack.start();
+    	//sensorTrack.start();
+    	//visionTrack.start();
     }
     
     /**
