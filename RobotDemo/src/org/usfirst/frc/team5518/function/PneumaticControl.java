@@ -65,7 +65,6 @@ public class PneumaticControl extends RobotFunction {
 	protected void log() {
 		super.log();
 		SmartDashboard.putNumber("Compressor Current", m_compressor.getCompressorCurrent());
-		SmartDashboard.putNumber("Encoder Raw", m_encoder.getRaw());
 	}
 	
 }

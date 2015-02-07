@@ -5,11 +5,12 @@ import org.usfirst.frc.team5518.robot.RobotMap;
 
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Jaguar;
+import edu.wpi.first.wpilibj.Victor;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class ArmElevator extends RobotFunction {
 	
-	private Jaguar m_jaguar;
+	private Victor m_victor;
 	private Encoder m_encoder;
 
 	public ArmElevator(String name) {
@@ -18,8 +19,8 @@ public class ArmElevator extends RobotFunction {
 
 	@Override
 	public void initialize() {
-		m_jaguar = new Jaguar(RobotMap.LIFT_MOTOR);
-		m_jaguar.enableDeadbandElimination(true);
+		m_victor = new Victor(RobotMap.LIFT_MOTOR);
+		m_victor.enableDeadbandElimination(true);
 		m_encoder = new Encoder(RobotMap.ENCODER_DIO_PORTA, RobotMap.ENCODER_DIO_PORTB);
 	}
 
@@ -35,14 +36,14 @@ public class ArmElevator extends RobotFunction {
 	@Override
 	public void log() {
 		super.log();
-		SmartDashboard.putNumber("Jaguar Speed", m_jaguar.getSpeed());
+		SmartDashboard.putNumber("Victor Speed", m_victor.getSpeed());
 		SmartDashboard.putNumber("Encoder Raw", m_encoder.getRaw());
 	}
 	
 	// *********************** HELPER FUNCTIONS **************************
 	
 	public void setJaguarSpeed(double speed) {
-		m_jaguar.set(speed);
+		m_victor.set(speed);
 	}
 	
 
