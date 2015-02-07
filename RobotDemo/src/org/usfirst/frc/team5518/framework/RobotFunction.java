@@ -26,7 +26,7 @@ public abstract class RobotFunction implements NamedSendable {
 	
 	public abstract void initialize();
 	public abstract void start();
-	protected abstract void outputHandler();
+	public abstract void outputHandler();
 	
 	protected void log() {
 		SmartDashboard.putData(this);

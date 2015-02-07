@@ -53,6 +53,7 @@ public class Robot extends IterativeRobot {
     	
     	armElevator.setJaguarSpeed(0.1);
     	driveTrain.setMaxPower(0.75);
+    	driveTrain.setSensitivity(driveTrain.kDefaultSensitivity);
     	
     	SmartDashboard.putData(armElevator);
     	SmartDashboard.putData(driveTrain);
@@ -103,6 +104,7 @@ public class Robot extends IterativeRobot {
     	pneumaticControl.start();
     	//sensorTrack.start();
     	//visionTrack.start();
+    	output();
     }
     
     /**
@@ -110,6 +112,12 @@ public class Robot extends IterativeRobot {
      */
     public void testPeriodic() {
     
+    }
+    
+    private void output() {
+    	armElevator.outputHandler();
+    	driveTrain.outputHandler();
+    	pneumaticControl.outputHandler();
     }
     
 }

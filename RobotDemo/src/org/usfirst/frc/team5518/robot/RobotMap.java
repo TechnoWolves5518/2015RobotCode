@@ -25,7 +25,9 @@ public class RobotMap {
 	public static final int X_AXIS = 0;  // joystick vertical axis
 	public static final int Y_AXIS = 1;  // joystick horizontal axis
 	public static final int Z_AXIS = 2;   // joystick rotate axis
+	public static final int SLIDER_AXIS = 3;  // joystick slider axis
 	public static final int BTN_TRIGGER = 0;   // joystick trigger button
+	public static final int BTN_2 = 1;  // joystick 2 button
 	
 	public static final int XBOX_LX_AXIS = 0;  // xbox left thumbstick vertical axis
 	public static final int XBOX_LY_AXIS = 1;  // xbox right thumbstick horizontal axis
@@ -39,10 +41,15 @@ public class RobotMap {
 	public static final int XBOX_BTN_Y = 3;   // xbox Y button
 	public static final int XBOX_BTN_LB = 4;   // xbox LB button
 	public static final int XBOX_BTN_RB = 5;   // xbox RB button
-	public static final int XBOX_BTN_START = 6;   // xbox start button
-	public static final int XBOX_BTN_BACK = 7;   // xbox back button
+	public static final int XBOX_BTN_BACK = 6;   // xbox back button
+	public static final int XBOX_BTN_START = 7;   // xbox start button
+	public static final int XBOX_BTN_LS = 8;  // xbox left stick button
+	public static final int XBOX_BTN_RS = 9;  // xbox right stick button
 	
-	public static final int SOLENOID_PCM_PORT1 = 0;
-	public static final int SOLENOID_PCM_PORT2 = 1;
+	public static final int SOLENOID_PCM_PORT1 = 0;  // solenoid pcm port
+	public static final int SOLENOID_PCM_PORT2 = 1;  // solenoid pcm port
+	
+	public static final int ENCODER_DIO_PORTA = 0;  // encoder DIO port on RoboRIO
+	public static final int ENCODER_DIO_PORTB = 1;  // encoder DIO port on RoboRIO
 	
 }

@@ -1,6 +1,7 @@
 package org.usfirst.frc.team5518.robot;
 
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.buttons.JoystickButton;
 
 public class XControllerOI {
 
@@ -16,7 +17,6 @@ private Joystick xbox;
 	}
 	
 	private void mapControls() {
-		
 	}
 	
 	public void setJoystick(int port) {
