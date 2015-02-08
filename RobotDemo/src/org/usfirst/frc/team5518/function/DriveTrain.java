@@ -5,6 +5,7 @@ import org.usfirst.frc.team5518.robot.Robot;
 import org.usfirst.frc.team5518.robot.RobotMap;
 
 import edu.wpi.first.wpilibj.RobotDrive;
+import edu.wpi.first.wpilibj.RobotDrive.MotorType;
 
 public class DriveTrain extends RobotFunction {
 	
@@ -22,13 +23,17 @@ public class DriveTrain extends RobotFunction {
 				RobotMap.FRONT_RIGHT_MOTOR, RobotMap.REAR_RIGHT_MOTOR);
 		m_robot.setExpiration(RobotDrive.kDefaultExpirationTime);  // set expiration time for motor movement if error occurs
 		m_robot.setSafetyEnabled(true);  // enable safety so motors don't burn out
+		m_robot.setInvertedMotor(MotorType.kFrontRight, true);
+		//m_robot.setInvertedMotor(MotorType.kFrontLeft, true);
+		m_robot.setInvertedMotor(MotorType.kRearRight, true);
+		//m_robot.setInvertedMotor(MotorType.kRearLeft, true);
 	}
 
 	@Override
 	public void start() {
-		m_robot.mecanumDrive_Cartesian(-Robot.jOi.getJoystick().getX(),
-				-Robot.jOi.getJoystick().getTwist(), 
-				-Robot.jOi.getJoystick().getY(), 0);
+		m_robot.mecanumDrive_Cartesian(Robot.jOi.getJoystick().getRawAxis(RobotMap.X_AXIS),
+				Robot.jOi.getJoystick().getRawAxis(RobotMap.Y_AXIS), 
+				Robot.jOi.getJoystick().getRawAxis(RobotMap.Z_AXIS), 0);
 	}
 
 	@Override

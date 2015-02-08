@@ -38,7 +38,7 @@ public class VisionTrack extends RobotFunction {
 	}
 
 	@Override
-	protected void outputHandler() {
+	public void outputHandler() {
 
 	}
 

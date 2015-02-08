@@ -9,6 +9,7 @@ import org.usfirst.frc.team5518.function.VisionTrack;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Scheduler;
+import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
@@ -31,7 +32,7 @@ public class Robot extends IterativeRobot {
 	private ArmElevator armElevator;
 	private DriveTrain driveTrain;
 	private PneumaticControl pneumaticControl;
-	//private SensorTrack sensorTrack;
+	private SensorTrack sensorTrack;
 	//private VisionTrack visionTrack;
 	
     public void robotInit() {
@@ -42,23 +43,22 @@ public class Robot extends IterativeRobot {
     	armElevator = new ArmElevator("ArmElevator");
     	driveTrain = new DriveTrain("DriveTrain");
     	pneumaticControl = new PneumaticControl("PneumaticControl");
-    	//sensorTrack = new SensorTrack("SensorTrack");
+    	sensorTrack = new SensorTrack("SensorTrack");
     	//visionTrack = new VisionTrack("VisionTrack");
     	
     	armElevator.initialize();
     	driveTrain.initialize();
     	pneumaticControl.initialize();
-    	//sensorTrack.initialize();
+    	sensorTrack.initialize();
     	//visionTrack.initialize();
     	
-    	armElevator.setJaguarSpeed(0.1);
-    	driveTrain.setMaxPower(0.75);
+    	driveTrain.setMaxPower(0.8);
     	driveTrain.setSensitivity(driveTrain.kDefaultSensitivity);
     	
     	SmartDashboard.putData(armElevator);
     	SmartDashboard.putData(driveTrain);
     	SmartDashboard.putData(pneumaticControl);
-    	//SmartDashboard.putData(sensorTrack);
+    	SmartDashboard.putData(sensorTrack);
     	//SmartDashboard.putData(visionTrack);
     	SmartDashboard.putData(Scheduler.getInstance());
     }
@@ -99,10 +99,15 @@ public class Robot extends IterativeRobot {
      * This function is called periodically during operator control
      */
     public void teleopPeriodic() {
+    	LiveWindow.run();
+    	Scheduler.getInstance().run();
+    	
+    	armElevator.setJaguarSpeed(Robot.xOi.getJoystick().getRawAxis(RobotMap.XBOX_LY_AXIS));
+    	
     	armElevator.start();
     	driveTrain.start();
     	pneumaticControl.start();
-    	//sensorTrack.start();
+    	sensorTrack.start();
     	//visionTrack.start();
     	output();
     }
@@ -118,6 +123,7 @@ public class Robot extends IterativeRobot {
     	armElevator.outputHandler();
     	driveTrain.outputHandler();
     	pneumaticControl.outputHandler();
+    	sensorTrack.outputHandler();
     }
     
 }

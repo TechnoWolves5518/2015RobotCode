@@ -6,12 +6,15 @@ import org.usfirst.frc.team5518.robot.RobotMap;
 
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class PneumaticControl extends RobotFunction {
 	
 	private Compressor m_compressor;
 	private DoubleSolenoid m_solenoid;
+	
+	private Joystick prevStick;
 	
 	private int comp_state = 0;  // compressor power state at next loop
 
@@ -25,7 +28,7 @@ public class PneumaticControl extends RobotFunction {
 		m_compressor.setClosedLoopControl(true);
 		m_compressor.startLiveWindowMode();
 		m_solenoid = new DoubleSolenoid(RobotMap.SOLENOID_PCM_PORT1, RobotMap.SOLENOID_PCM_PORT2);
-		m_solenoid.startLiveWindowMode();
+		//m_solenoid.startLiveWindowMode();
 	}
 
 	@Override
@@ -42,7 +45,7 @@ public class PneumaticControl extends RobotFunction {
     		m_solenoid.set(DoubleSolenoid.Value.kOff); 
     	}
 		
-		 if (Robot.xOi.getJoystick().getRawButton(RobotMap.XBOX_BTN_RS)) {
+		 if (Robot.xOi.getJoystickBtn(RobotMap.XBOX_BTN_RS).get()) {
 			 switch (comp_state) {
 			 case 0:  // compressor off
 				 m_compressor.setClosedLoopControl(false);
@@ -53,6 +56,8 @@ public class PneumaticControl extends RobotFunction {
 				 comp_state = 0;
 			 }
 		 }
+		 
+		 prevStick = Robot.xOi.getJoystick();
 		
 	}
 
