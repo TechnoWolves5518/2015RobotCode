@@ -6,6 +6,7 @@ import org.usfirst.frc.team5518.robot.RobotMap;
 
 import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.RobotDrive.MotorType;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class DriveTrain extends RobotFunction {
 	
@@ -44,6 +45,9 @@ public class DriveTrain extends RobotFunction {
 	@Override
 	protected void log() {
 		super.log();
+		SmartDashboard.putNumber("Joystick X Axis", Robot.jOi.getJoystick().getRawAxis(RobotMap.X_AXIS));
+		SmartDashboard.putNumber("Joystick Y Axis", Robot.jOi.getJoystick().getRawAxis(RobotMap.Y_AXIS));
+		SmartDashboard.putNumber("Joystick Z Axis", Robot.jOi.getJoystick().getRawAxis(RobotMap.Z_AXIS));
 	}
 	
 	// *********************** HELPER FUNCTIONS **************************

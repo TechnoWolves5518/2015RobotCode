@@ -92,7 +92,7 @@ public class Robot extends IterativeRobot {
         // teleop starts running. If you want the autonomous to 
         // continue until interrupted by another command, remove
         // this line or comment it out.
-        
+        armElevator.resetEncoder();
     }
 
     /**
@@ -102,8 +102,7 @@ public class Robot extends IterativeRobot {
     	LiveWindow.run();
     	Scheduler.getInstance().run();
     	
-    	armElevator.setJaguarSpeed(Robot.xOi.getJoystick().getRawAxis(RobotMap.XBOX_LY_AXIS));
-    	
+    	armElevator.setJaguarSpeed(-Robot.xOi.getJoystick().getRawAxis(RobotMap.XBOX_LY_AXIS)*.8+.02);
     	armElevator.start();
     	driveTrain.start();
     	pneumaticControl.start();
