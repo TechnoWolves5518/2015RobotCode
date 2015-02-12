@@ -102,7 +102,11 @@ public class Robot extends IterativeRobot {
     	LiveWindow.run();
     	Scheduler.getInstance().run();
     	
+<<<<<<< HEAD
     	armElevator.setJaguarSpeed(-Robot.xOi.getJoystick().getRawAxis(RobotMap.XBOX_LY_AXIS)*.8+.04);
+=======
+    	armElevator.setJaguarSpeed(-Robot.xOi.getJoystick().getRawAxis(RobotMap.XBOX_LY_AXIS)*.8+.02);
+>>>>>>> origin/master
     	armElevator.start();
     	driveTrain.start();
     	pneumaticControl.start();

@@ -16,11 +16,19 @@ public class ArmElevator extends RobotFunction {
 	
 	private Victor m_victor;
 	private Encoder m_encoder;
+<<<<<<< HEAD
 	//private DigitalInput m_maxLimit;
 	//private DigitalInput m_minLimit;
 	
 	//private Counter max_counter;
 	//private Counter min_counter;
+=======
+	/*private DigitalInput m_maxLimit;
+	private DigitalInput m_minLimit;*/
+	
+	/*private Counter max_counter;
+	private Counter min_counter;*/
+>>>>>>> origin/master
 	private double victor_speed;
 	private int victor_state = 0;
 
