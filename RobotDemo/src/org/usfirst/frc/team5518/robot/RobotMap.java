@@ -52,7 +52,11 @@ public class RobotMap {
 	public static final int ENCODER_DIO_PORTA = 0;  // encoder DIO port on RoboRIO
 	public static final int ENCODER_DIO_PORTB = 1;  // encoder DIO port on RoboRIO
 	
-	public static final int SENSOR_DIO_PORT1 = 2; // ultrasonic DIO port
-	public static final int SENSOR_DIO_PORT2 = 3; // ultrasonic DIO port
+	/*public static final int SENSOR_DIO_PORT1 = 2; // ultrasonic DIO port
+	public static final int SENSOR_DIO_PORT2 = 9; // ultrasonic DIO port*/
+	public static final int SENSOR_ANALOG_PORT = 0; // ultrasonic analog port
+	
+	public static final int LIMIT_DIO_PORT1 = 2;  // limit switch DIO port
+	public static final int LIMIT_DIO_PORT2 = 3;  // limit switch DIO port
 	
 }

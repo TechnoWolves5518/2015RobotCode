@@ -5,6 +5,7 @@ import org.usfirst.frc.team5518.robot.Robot;
 import org.usfirst.frc.team5518.robot.RobotMap;
 
 import edu.wpi.first.wpilibj.Compressor;
+import edu.wpi.first.wpilibj.Counter;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -14,10 +15,8 @@ public class PneumaticControl extends RobotFunction {
 	private Compressor m_compressor;
 	private DoubleSolenoid m_solenoid;
 	
-	private Joystick prevStick;
+	private boolean comp_state = true;
 	
-	private int comp_state = 0;  // compressor power state at next loop
-
 	public PneumaticControl(String name) {
 		super(name);
 	}
@@ -45,21 +44,19 @@ public class PneumaticControl extends RobotFunction {
     		m_solenoid.set(DoubleSolenoid.Value.kOff); 
     	}
 		
-		 if (Robot.xOi.getJoystickBtn(RobotMap.XBOX_BTN_RS).get()) {
-			 switch (comp_state) {
-			 case 0:  // compressor off
-				 m_compressor.setClosedLoopControl(false);
-				 comp_state = 1;
-				 break;
-			 case 1:  // compressor on
-				 m_compressor.setClosedLoopControl(true);
-				 comp_state = 0;
-			 }
-		 }
-		 
-		 prevStick = Robot.xOi.getJoystick();
+		if (Robot.xOi.getJoystick().getRawButton((RobotMap.XBOX_BTN_BACK))) {
+			if (comp_state) {
+				m_compressor.setClosedLoopControl(true);
+				comp_state = false;
+			} else {
+				m_compressor.setClosedLoopControl(false);
+				comp_state = true;
+			}
+		}
 		
 	}
+		 
+	
 
 	@Override
 	public void outputHandler() {
