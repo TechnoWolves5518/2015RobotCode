@@ -33,7 +33,7 @@ public class Robot extends IterativeRobot {
 	private DriveTrain driveTrain;
 	private PneumaticControl pneumaticControl;
 	private SensorTrack sensorTrack;
-	//private VisionTrack visionTrack;
+	private VisionTrack visionTrack;
 	
     public void robotInit() {
     	
@@ -44,22 +44,22 @@ public class Robot extends IterativeRobot {
     	driveTrain = new DriveTrain("DriveTrain");
     	pneumaticControl = new PneumaticControl("PneumaticControl");
     	sensorTrack = new SensorTrack("SensorTrack");
-    	//visionTrack = new VisionTrack("VisionTrack");
+    	visionTrack = new VisionTrack("VisionTrack");
     	
     	armElevator.initialize();
     	driveTrain.initialize();
     	pneumaticControl.initialize();
     	sensorTrack.initialize();
-    	//visionTrack.initialize();
+    	visionTrack.initialize();
     	
     	driveTrain.setMaxPower(0.8);
-    	driveTrain.setSensitivity(driveTrain.kDefaultSensitivity);
+    	driveTrain.setSensitivity(driveTrain.kDefaultSensitivity*.85);
     	
     	SmartDashboard.putData(armElevator);
     	SmartDashboard.putData(driveTrain);
     	SmartDashboard.putData(pneumaticControl);
     	SmartDashboard.putData(sensorTrack);
-    	//SmartDashboard.putData(visionTrack);
+    	SmartDashboard.putData(visionTrack);
     	SmartDashboard.putData(Scheduler.getInstance());
     }
     
@@ -68,7 +68,7 @@ public class Robot extends IterativeRobot {
      * You can use it to reset subsystems before shutting down.
      */
     public void disabledInit(){
-    	
+    	visionTrack.disabledInit();
     }
     
     public void disabledPeriodic() {
@@ -76,15 +76,14 @@ public class Robot extends IterativeRobot {
 	}
     
     public void autonomousInit() {
-        // schedule the autonomous command (example)
-        //if (autonomousCommand != null) autonomousCommand.start();
+    	driveTrain.autoStart();
     }
 
     /**
      * This function is called periodically during autonomous
      */
     public void autonomousPeriodic() {
-
+    	output();
     }
     
     public void teleopInit() {
@@ -93,6 +92,7 @@ public class Robot extends IterativeRobot {
         // continue until interrupted by another command, remove
         // this line or comment it out.
         armElevator.resetEncoder();
+        visionTrack.telopInit();
     }
 
     /**
@@ -102,12 +102,12 @@ public class Robot extends IterativeRobot {
     	LiveWindow.run();
     	Scheduler.getInstance().run();
     	
-    	armElevator.setJaguarSpeed(-Robot.xOi.getJoystick().getRawAxis(RobotMap.XBOX_LY_AXIS)*.8+.02);
+    	armElevator.setJaguarSpeed(-Robot.xOi.getJoystick().getRawAxis(RobotMap.XBOX_LY_AXIS)*.8+.04);
     	armElevator.start();
     	driveTrain.start();
     	pneumaticControl.start();
     	sensorTrack.start();
-    	//visionTrack.start();
+    	visionTrack.start();
     	output();
     }
     
@@ -123,6 +123,7 @@ public class Robot extends IterativeRobot {
     	driveTrain.outputHandler();
     	pneumaticControl.outputHandler();
     	sensorTrack.outputHandler();
+    	visionTrack.outputHandler();
     }
     
 }

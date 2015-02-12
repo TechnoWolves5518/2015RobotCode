@@ -26,7 +26,7 @@ public class RobotMap {
 	public static final int Y_AXIS = 1;  // joystick horizontal axis
 	public static final int Z_AXIS = 2;   // joystick rotate axis
 	public static final int SLIDER_AXIS = 3;  // joystick slider axis
-	public static final int BTN_TRIGGER = 1;   // joystick trigger button
+	public static final int BTN_TRIGGER = 1;  // joystick trigger button
 	public static final int BTN_2 = 2;  // joystick 2 button
 	
 	public static final int XBOX_LX_AXIS = 0;  // xbox left thumbstick vertical axis

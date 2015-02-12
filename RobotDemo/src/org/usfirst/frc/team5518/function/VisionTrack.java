@@ -12,7 +12,7 @@ import edu.wpi.first.wpilibj.CameraServer;
 public class VisionTrack extends RobotFunction {
 	
 	private Image frame;
-	private int session;
+	private int session = -1;
 	private NIVision.Rect rect = new NIVision.Rect(10, 10, 100, 100);
 
 	public VisionTrack(String name) {
@@ -25,7 +25,6 @@ public class VisionTrack extends RobotFunction {
         session = NIVision.IMAQdxOpenCamera("cam0",
                 NIVision.IMAQdxCameraControlMode.CameraControlModeController);  // get reference to camera
         NIVision.IMAQdxConfigureGrab(session);  // grab current streaming session
-        NIVision.IMAQdxStartAcquisition(session);  // start video capturing from camera
 	}
 
 	@Override
@@ -40,6 +39,14 @@ public class VisionTrack extends RobotFunction {
 	@Override
 	public void outputHandler() {
 
+	}
+	
+	public void telopInit() {
+		NIVision.IMAQdxStartAcquisition(session);  // start video capturing from camera
+	}
+	
+	public void disabledInit() {
+		if (session != -1) NIVision.IMAQdxStopAcquisition(session);
 	}
 
 }

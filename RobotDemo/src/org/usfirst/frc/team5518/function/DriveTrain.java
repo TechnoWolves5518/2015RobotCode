@@ -6,6 +6,7 @@ import org.usfirst.frc.team5518.robot.RobotMap;
 
 import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.RobotDrive.MotorType;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class DriveTrain extends RobotFunction {
@@ -13,6 +14,8 @@ public class DriveTrain extends RobotFunction {
 	public static final double kDefaultSensitivity = RobotDrive.kDefaultSensitivity;
 
 	private RobotDrive m_robot;
+	
+	private float speed_factor;
 
 	public DriveTrain(String name) {
 		super(name);
@@ -32,9 +35,16 @@ public class DriveTrain extends RobotFunction {
 
 	@Override
 	public void start() {
-		m_robot.mecanumDrive_Cartesian(Robot.jOi.getJoystick().getRawAxis(RobotMap.X_AXIS),
-				Robot.jOi.getJoystick().getRawAxis(RobotMap.Y_AXIS), 
-				Robot.jOi.getJoystick().getRawAxis(RobotMap.Z_AXIS), 0);
+		
+		if (Robot.jOi.getJoystick().getRawButton(RobotMap.BTN_TRIGGER))
+			speed_factor = 0.5f;
+		else
+			speed_factor = 1;
+		
+		m_robot.mecanumDrive_Cartesian(Robot.jOi.getJoystick().getRawAxis(RobotMap.X_AXIS)*speed_factor,
+				Robot.jOi.getJoystick().getRawAxis(RobotMap.Y_AXIS)*speed_factor, 
+				Robot.jOi.getJoystick().getRawAxis(RobotMap.Z_AXIS)*speed_factor, 0);
+		
 	}
 
 	@Override
@@ -48,6 +58,12 @@ public class DriveTrain extends RobotFunction {
 		SmartDashboard.putNumber("Joystick X Axis", Robot.jOi.getJoystick().getRawAxis(RobotMap.X_AXIS));
 		SmartDashboard.putNumber("Joystick Y Axis", Robot.jOi.getJoystick().getRawAxis(RobotMap.Y_AXIS));
 		SmartDashboard.putNumber("Joystick Z Axis", Robot.jOi.getJoystick().getRawAxis(RobotMap.Z_AXIS));
+	}
+	
+	public void autoStart() {
+        m_robot.drive(-0.5, 0.0);	// drive forwards half speed
+        Timer.delay(2.0);		//    for 2 seconds
+        m_robot.drive(0.0, 0.0);	// stop robot
 	}
 	
 	// *********************** HELPER FUNCTIONS **************************
