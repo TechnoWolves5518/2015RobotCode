@@ -68,6 +68,7 @@ public class Robot extends IterativeRobot {
      * You can use it to reset subsystems before shutting down.
      */
     public void disabledInit(){
+    	driveTrain.autoStop();
     	visionTrack.disabledInit();
     }
     
@@ -102,7 +103,7 @@ public class Robot extends IterativeRobot {
     	LiveWindow.run();
     	Scheduler.getInstance().run();
     	
-    	armElevator.setJaguarSpeed(-Robot.xOi.getJoystick().getRawAxis(RobotMap.XBOX_LY_AXIS)*.8+.04);
+    	armElevator.setJaguarSpeed(-Robot.xOi.getJoystick().getRawAxis(RobotMap.XBOX_LY_AXIS)*.8+.02);
     	armElevator.start();
     	driveTrain.start();
     	pneumaticControl.start();

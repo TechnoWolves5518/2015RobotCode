@@ -14,9 +14,11 @@ public class DriveTrain extends RobotFunction {
 	public static final double kDefaultSensitivity = RobotDrive.kDefaultSensitivity;
 
 	private RobotDrive m_robot;
+	private Thread m_thread = null;
+	private Runnable m_runnable = null;
 	
 	private float speed_factor;
-
+	
 	public DriveTrain(String name) {
 		super(name);
 	}
@@ -31,6 +33,16 @@ public class DriveTrain extends RobotFunction {
 		//m_robot.setInvertedMotor(MotorType.kFrontLeft, true);
 		m_robot.setInvertedMotor(MotorType.kRearRight, true);
 		//m_robot.setInvertedMotor(MotorType.kRearLeft, true);
+		
+		m_runnable = new Runnable() {
+			
+			@Override
+			public void run() {
+				m_robot.drive(-0.5, 0.0);	// drive forwards half speed
+				Timer.delay(2.0);		//    for 2 seconds
+				m_robot.drive(0.0, 0.0);	// stop robot
+			}
+		};
 	}
 
 	@Override
@@ -39,7 +51,7 @@ public class DriveTrain extends RobotFunction {
 		if (Robot.jOi.getJoystick().getRawButton(RobotMap.BTN_TRIGGER))
 			speed_factor = 0.5f;
 		else
-			speed_factor = 1;
+			speed_factor = 1f;
 		
 		m_robot.mecanumDrive_Cartesian(Robot.jOi.getJoystick().getRawAxis(RobotMap.X_AXIS)*speed_factor,
 				Robot.jOi.getJoystick().getRawAxis(RobotMap.Y_AXIS)*speed_factor, 
@@ -61,9 +73,12 @@ public class DriveTrain extends RobotFunction {
 	}
 	
 	public void autoStart() {
-        m_robot.drive(-0.5, 0.0);	// drive forwards half speed
-        Timer.delay(2.0);		//    for 2 seconds
-        m_robot.drive(0.0, 0.0);	// stop robot
+		m_thread = new Thread(m_runnable);
+        m_thread.start();
+	}
+	
+	public void autoStop() {
+		if (m_thread != null) m_thread.interrupt();
 	}
 	
 	// *********************** HELPER FUNCTIONS **************************

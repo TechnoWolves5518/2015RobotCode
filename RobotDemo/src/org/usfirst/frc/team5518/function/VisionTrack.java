@@ -12,7 +12,7 @@ import edu.wpi.first.wpilibj.CameraServer;
 public class VisionTrack extends RobotFunction {
 	
 	private Image frame;
-	private int session = -1;
+	private int session;
 	private NIVision.Rect rect = new NIVision.Rect(10, 10, 100, 100);
 
 	public VisionTrack(String name) {
@@ -46,7 +46,7 @@ public class VisionTrack extends RobotFunction {
 	}
 	
 	public void disabledInit() {
-		if (session != -1) NIVision.IMAQdxStopAcquisition(session);
+		NIVision.IMAQdxStopAcquisition(session);
 	}
 
 }
