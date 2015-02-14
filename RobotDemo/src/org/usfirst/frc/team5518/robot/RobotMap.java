@@ -57,6 +57,6 @@ public class RobotMap {
 	public static final int SENSOR_ANALOG_PORT = 0; // ultrasonic analog port
 	
 	public static final int LIMIT_DIO_PORT1 = 2;  // limit switch DIO port
-	public static final int LIMIT_DIO_PORT2 = 3;  // limit switch DIO port
+	//public static final int LIMIT_DIO_PORT2 = 3;  // limit switch DIO port
 	
 }

@@ -53,7 +53,7 @@ public class Robot extends IterativeRobot {
     	visionTrack.initialize();
     	
     	driveTrain.setMaxPower(0.8);
-    	driveTrain.setSensitivity(driveTrain.kDefaultSensitivity*.85);
+    	driveTrain.setSensitivity(driveTrain.kDefaultSensitivity);
     	
     	SmartDashboard.putData(armElevator);
     	SmartDashboard.putData(driveTrain);
@@ -103,7 +103,8 @@ public class Robot extends IterativeRobot {
     	LiveWindow.run();
     	Scheduler.getInstance().run();
     	
-    	armElevator.setJaguarSpeed(-Robot.xOi.getJoystick().getRawAxis(RobotMap.XBOX_LY_AXIS)*.8+.02);
+    	armElevator.setVictorSpeed((-Robot.xOi.getJoystick()
+    			.getRawAxis(RobotMap.XBOX_LY_AXIS)*0.70));
     	armElevator.start();
     	driveTrain.start();
     	pneumaticControl.start();

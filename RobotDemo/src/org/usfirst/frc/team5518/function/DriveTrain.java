@@ -11,7 +11,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class DriveTrain extends RobotFunction {
 	
-	public static final double kDefaultSensitivity = RobotDrive.kDefaultSensitivity;
+	public static final double kDefaultSensitivity = 0.75;
 
 	private RobotDrive m_robot;
 	private Thread m_thread = null;
@@ -49,9 +49,9 @@ public class DriveTrain extends RobotFunction {
 	public void start() {
 		
 		if (Robot.jOi.getJoystick().getRawButton(RobotMap.BTN_TRIGGER))
-			speed_factor = 0.5f;
+			speed_factor = 0.25f;
 		else
-			speed_factor = 1f;
+			speed_factor = 0.75f;
 		
 		m_robot.mecanumDrive_Cartesian(Robot.jOi.getJoystick().getRawAxis(RobotMap.X_AXIS)*speed_factor,
 				Robot.jOi.getJoystick().getRawAxis(RobotMap.Y_AXIS)*speed_factor, 

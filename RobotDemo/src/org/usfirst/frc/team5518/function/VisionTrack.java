@@ -1,11 +1,11 @@
 package org.usfirst.frc.team5518.function;
 
 import org.usfirst.frc.team5518.framework.RobotFunction;
+import org.usfirst.frc.team5518.robot.Robot;
+import org.usfirst.frc.team5518.robot.RobotMap;
 
 import com.ni.vision.NIVision;
-import com.ni.vision.NIVision.DrawMode;
 import com.ni.vision.NIVision.Image;
-import com.ni.vision.NIVision.ShapeMode;
 
 import edu.wpi.first.wpilibj.CameraServer;
 
@@ -13,7 +13,6 @@ public class VisionTrack extends RobotFunction {
 	
 	private Image frame;
 	private int session;
-	private NIVision.Rect rect = new NIVision.Rect(10, 10, 100, 100);
 
 	public VisionTrack(String name) {
 		super(name);
@@ -29,11 +28,12 @@ public class VisionTrack extends RobotFunction {
 
 	@Override
 	public void start() {
-		NIVision.IMAQdxGrab(session, frame, 1);  // grab frame from session
-        /*NIVision.imaqDrawShapeOnImage(frame, frame, rect,
-                DrawMode.DRAW_VALUE, ShapeMode.SHAPE_OVAL, 0.0f); // draw rectangle on frame*/
-        
-        CameraServer.getInstance().setImage(frame);  // send frame to stream in SmartDashboard
+		
+		if (Robot.jOi.getJoystick().getRawButton(RobotMap.BTN_2)) {
+			NIVision.IMAQdxGrab(session, frame, 1);  // grab frame from session
+		    CameraServer.getInstance().setImage(frame);  // send frame to stream in SmartDashboard
+		}
+		
 	}
 
 	@Override
