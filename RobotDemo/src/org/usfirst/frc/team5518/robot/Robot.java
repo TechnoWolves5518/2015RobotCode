@@ -7,6 +7,7 @@ import org.usfirst.frc.team5518.function.PneumaticControl;
 import org.usfirst.frc.team5518.function.SensorTrack;
 import org.usfirst.frc.team5518.function.VisionTrack;
 
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
@@ -37,8 +38,8 @@ public class Robot extends IterativeRobot {
 	
     public void robotInit() {
     	
-    	xOi = new XControllerOI();
-    	jOi = new JoystickOI();
+    	xOi = new XControllerOI();  // Xbox controller button mapping
+    	jOi = new JoystickOI();  // Joystick button mapping class
     	
     	armElevator = new ArmElevator("ArmElevator");
     	driveTrain = new DriveTrain("DriveTrain");
@@ -61,6 +62,7 @@ public class Robot extends IterativeRobot {
     	SmartDashboard.putData(sensorTrack);
     	SmartDashboard.putData(visionTrack);
     	SmartDashboard.putData(Scheduler.getInstance());
+    	
     }
     
     /**
@@ -68,7 +70,6 @@ public class Robot extends IterativeRobot {
      * You can use it to reset subsystems before shutting down.
      */
     public void disabledInit(){
-    	driveTrain.autoStop();
     	visionTrack.disabledInit();
     }
     
@@ -88,19 +89,22 @@ public class Robot extends IterativeRobot {
     }
     
     public void teleopInit() {
+    	
 		// This makes sure that the autonomous stops running when
         // teleop starts running. If you want the autonomous to 
         // continue until interrupted by another command, remove
         // this line or comment it out.
+    	
         armElevator.resetEncoder();
         visionTrack.telopInit();
+    	
     }
 
     /**
      * This function is called periodically during operator control
      */
     public void teleopPeriodic() {
-    	LiveWindow.run();
+    	
     	Scheduler.getInstance().run();
     	
     	armElevator.setVictorSpeed((-Robot.xOi.getJoystick()
@@ -111,21 +115,23 @@ public class Robot extends IterativeRobot {
     	sensorTrack.start();
     	visionTrack.start();
     	output();
+    	
     }
     
     /**
      * This function is called periodically during test mode
      */
     public void testPeriodic() {
-    
     }
     
     private void output() {
+    	
     	armElevator.outputHandler();
     	driveTrain.outputHandler();
     	pneumaticControl.outputHandler();
     	sensorTrack.outputHandler();
     	visionTrack.outputHandler();
+    	
     }
     
 }

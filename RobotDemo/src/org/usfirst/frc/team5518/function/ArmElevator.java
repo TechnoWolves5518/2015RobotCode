@@ -33,6 +33,7 @@ public class ArmElevator extends RobotFunction {
 		
 		m_encoder = new Encoder(RobotMap.ENCODER_DIO_PORTA,
 				RobotMap.ENCODER_DIO_PORTB, true);
+		m_encoder.setSamplesToAverage(10);
 		
 		m_maxLimit = new DigitalInput(RobotMap.LIMIT_DIO_PORT1);
 		max_counter = new Counter(m_maxLimit);
@@ -42,7 +43,7 @@ public class ArmElevator extends RobotFunction {
 	@Override
 	public void start() {
 		
-		if (Robot.xOi.getJoystickBtn(RobotMap.XBOX_BTN_X).get()) {
+		if (Robot.xOi.getJoystickBtn(RobotMap.XBOX_BTN_A).get()) {
 			switch (victor_state) {
 			 case 0:
 				 m_victor.disable();
@@ -53,6 +54,12 @@ public class ArmElevator extends RobotFunction {
 				 victor_state = 0;
 			 }
 		}
+		
+		/*if (isMaxSwitchSet()) {
+			setVictorSpeed(0);
+			resetEncoder();
+		}*/
+		
 	}
 
 	@Override
@@ -75,6 +82,12 @@ public class ArmElevator extends RobotFunction {
 	
 	// *********************** HELPER FUNCTIONS **************************
 	
+	
+	/**
+	 * Set speed of Victor speed controller.
+	 * If speed is 0, then set default value
+	 * to compensate for weight of totes.
+	 */
 	public void setVictorSpeed(double speed) {
 		
 		if (speed == 0.0)  // if speed value is 0
@@ -85,10 +98,17 @@ public class ArmElevator extends RobotFunction {
 		m_victor.set(victor_speed);  // set the victor speed
 	}
 	
+	/**
+	 * Reset the encoder value to 0.
+	 */
 	public void resetEncoder() {
 		m_encoder.reset();  // reset the encoder
 	}
 	
+	/**
+	 * Return true or false if the maximum
+	 * or top limit switch is being hit.
+	 */
 	private boolean isMaxSwitchSet() {
 		// return true/valse for limit switch value
 		return max_counter.get() > 0;
