@@ -16,7 +16,6 @@ public class JoystickOI {
 	}
 	
 	private void mapControls() {
-		
 	}
 	
 	public void setJoystick(int port) {

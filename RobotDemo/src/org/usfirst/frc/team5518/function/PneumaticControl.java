@@ -23,9 +23,8 @@ public class PneumaticControl extends RobotFunction {
 	public void initialize() {
 		m_compressor = new Compressor();
 		m_compressor.setClosedLoopControl(true);
-		m_compressor.startLiveWindowMode();
-		m_solenoid = new DoubleSolenoid(RobotMap.SOLENOID_PCM_PORT1, RobotMap.SOLENOID_PCM_PORT2);
-		//m_solenoid.startLiveWindowMode();
+		m_solenoid = new DoubleSolenoid(RobotMap.SOLENOID_PCM_PORT1,
+				RobotMap.SOLENOID_PCM_PORT2);
 	}
 
 	@Override

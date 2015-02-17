@@ -7,9 +7,6 @@ public class XControllerOI {
 
 private Joystick xbox;
 
-private JoystickButton xbox_a;
-private JoystickButton xbox_rs;
-	
 	public XControllerOI() {
 		
 		// instantiate xbox variable
@@ -20,8 +17,6 @@ private JoystickButton xbox_rs;
 	}
 	
 	private void mapControls() {
-		xbox_a = new JoystickButton(xbox, RobotMap.XBOX_BTN_A);
-		xbox_rs = new JoystickButton(xbox, RobotMap.XBOX_BTN_RS);
 	}
 	
 	public void setJoystick(int port) {
@@ -32,7 +27,7 @@ private JoystickButton xbox_rs;
 		return xbox;
 	}
 	
-	public JoystickButton getJoystickBtn(int button) {
+	/*public JoystickButton getJoystickBtn(int button) {
 		switch (button) {
 		case RobotMap.XBOX_BTN_A:
 			return xbox_a;
@@ -41,6 +36,6 @@ private JoystickButton xbox_rs;
 		default:
 			return null;
 		}
-	}
+	}*/
 	
 }

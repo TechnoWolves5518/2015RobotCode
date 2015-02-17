@@ -36,7 +36,6 @@ public class VisionTrack extends RobotFunction {
 
 	@Override
 	public void outputHandler() {
-
 	}
 	
 	public void telopInit() {

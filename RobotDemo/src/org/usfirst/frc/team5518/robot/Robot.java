@@ -63,6 +63,10 @@ public class Robot extends IterativeRobot {
     			new AutonomousChooser(1));
     	autoChooser.addObject("Autonomous 2: Pull ",
     			new AutonomousChooser(2));
+    	autoChooser.addObject("Autonomous 3: Push w/ Hill",
+    			new AutonomousChooser(3));
+    	autoChooser.addObject("Autonomous 4: Pull w/ Hill", 
+    			new AutonomousChooser(4));
     	SmartDashboard.putData("Autonomous Chooser", autoChooser);
     	
     	armElevator.initialize();
@@ -97,11 +101,21 @@ public class Robot extends IterativeRobot {
 	}
     
     public void autonomousInit() {
+    	
     	auto_sec = Timer.getFPGATimestamp();
     	autonomous_number = ((AutonomousChooser) autoChooser.getSelected()).getNumber();
-    	driveTrain.autoStart();
-    	pneumaticControl.autonomous();
-    	Timer.delay(1.0);
+    	
+    	switch (autonomous_number) {
+    	case 1:
+    	case 3:
+    		autonomousSetup(false);
+    		break;
+    	case 2:
+    	case 4:
+    		autonomousSetup(true);
+    		break;
+    	}
+    	
     }
 
     /**
@@ -111,11 +125,20 @@ public class Robot extends IterativeRobot {
     	
     	double seconds = Timer.getFPGATimestamp();
     	
-    	if ((seconds - auto_sec) < 3.25) {
-    		pneumaticControl.autonomous();
-    		armElevator.autoPeriodic();
-    		driveTrain.autoPeriodic2();
-		}
+    	switch (autonomous_number) {
+    	case 1:
+    		autonomousPush(seconds, 2.0);
+    		break;
+    	case 2:
+    		autonomousPull(seconds, 3.0);
+    		break;
+    	case 3:
+    		autonomousPush(seconds, 3.5);
+    		break;
+    	case 4:
+    		autonomousPull(seconds, 3.3);
+    		break;
+    	}
     	
     	output();
     	
@@ -141,7 +164,7 @@ public class Robot extends IterativeRobot {
     	Scheduler.getInstance().run();
     	
     	armElevator.setVictorSpeed((-Robot.xOi.getJoystick()
-    			.getRawAxis(RobotMap.XBOX_LY_AXIS)*0.70));
+    			.getRawAxis(RobotMap.XBOX_LY_AXIS)*0.70), false);
     	armElevator.start();
     	driveTrain.start();
     	pneumaticControl.start();
@@ -163,10 +186,35 @@ public class Robot extends IterativeRobot {
     	driveTrain.outputHandler();
     	pneumaticControl.outputHandler();
     	sensorTrack.outputHandler();
-    	visionTrack.outputHandler();
+    	//visionTrack.outputHandler();
     	
     	SmartDashboard.putNumber("System Clock", Timer.getFPGATimestamp());
 		SmartDashboard.putNumber("Autonomous Init", auto_sec);
+    	
+    }
+    
+    private void autonomousSetup(boolean extra) {
+    	
+    	if (extra) {
+    		armElevator.autoStart();
+        	pneumaticControl.autonomous();
+        	Timer.delay(1.0);
+    	}
+    	
+    }
+    
+    private void autonomousPush(double seconds, double limit) {
+    	if ((seconds - auto_sec) < limit)
+    		driveTrain.drive(0, -0.5, 0);
+    }
+    
+    private void autonomousPull(double seconds, double limit) {
+    	
+    	if ((seconds - auto_sec) < limit) {
+    		pneumaticControl.autonomous();
+    		armElevator.autoPeriodic();
+    		driveTrain.drive(0, 0.5, 0);	
+	    }
     	
     }
     

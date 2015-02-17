@@ -19,7 +19,7 @@ public class ArmElevator extends RobotFunction {
 	
 	private Counter max_counter;
 	private double victor_speed;
-	private int victor_state = 0;
+	private boolean victor_state = true;
 	private double auto_sec;
 
 	public ArmElevator(String name) {
@@ -45,20 +45,19 @@ public class ArmElevator extends RobotFunction {
 	@Override
 	public void start() {
 		
-		if (Robot.xOi.getJoystickBtn(RobotMap.XBOX_BTN_A).get()) {
-			switch (victor_state) {
-			 case 0:
-				 m_victor.disable();
-				 victor_state = 1;
-				 break;
-			 case 1:
-				 m_victor.set(victor_speed);
-				 victor_state = 0;
-			 }
+		if (Robot.xOi.getJoystick().getRawButton(RobotMap.XBOX_BTN_Y)) {
+			if (victor_state) {
+				m_victor.set(victor_speed);
+				victor_state = false;
+			} else {
+				m_victor.disable();
+				victor_state = true;
+			}
 		}
 		
 		if (!m_maxLimit.get()) {
-			setVictorSpeed(0);
+			setVictorSpeed((-Robot.xOi.getJoystick()
+	    			.getRawAxis(RobotMap.XBOX_LY_AXIS)*0.70), true);
 			resetEncoder();
 		}
 		
@@ -73,9 +72,9 @@ public class ArmElevator extends RobotFunction {
 		double seconds = Timer.getFPGATimestamp();
 		
 		if ((seconds - auto_sec) < 2.0)
-			setVictorSpeed(0.4);
+			setVictorSpeed(0.4, false);
 		else
-			setVictorSpeed(0.08);
+			setVictorSpeed(0.08, false);
 		
 	}
 
@@ -104,7 +103,10 @@ public class ArmElevator extends RobotFunction {
 	 * If speed is 0, then set default value
 	 * to compensate for weight of totes.
 	 */
-	public void setVictorSpeed(double speed) {
+	public void setVictorSpeed(double speed, boolean maxLimit) {
+		
+		if (maxLimit && speed > 0.0)
+			speed = 0.0;
 		
 		if (speed == 0.0)  // if speed value is 0
 			this.victor_speed = 0.1;  // set a default value

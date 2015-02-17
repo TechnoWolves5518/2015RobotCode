@@ -20,7 +20,6 @@ public class RobotMap {
 	
 	public static final int JOYSTICK_PORT1 = 0;  // joystick port on DS
 	public static final int JOYSTICK_PORT2 = 1;  // joystick port on DS
-	//public static final double SENSITIVITY_BUFFER = 1.25d;
 	
 	public static final int X_AXIS = 0;  // joystick vertical axis
 	public static final int Y_AXIS = 1;  // joystick horizontal axis
@@ -52,9 +51,7 @@ public class RobotMap {
 	public static final int ENCODER_DIO_PORTA = 0;  // encoder DIO port on RoboRIO
 	public static final int ENCODER_DIO_PORTB = 1;  // encoder DIO port on RoboRIO
 	
-	/*public static final int SENSOR_DIO_PORT1 = 2; // ultrasonic DIO port
-	public static final int SENSOR_DIO_PORT2 = 9; // ultrasonic DIO port*/
-	public static final int SENSOR_ANALOG_PORT = 0; // ultrasonic analog port
+	//public static final int SENSOR_ANALOG_PORT = 0; // ultrasonic analog port
 	
 	public static final int LIMIT_DIO_PORT1 = 2;  // limit switch DIO port
 	//public static final int LIMIT_DIO_PORT2 = 3;  // limit switch DIO port

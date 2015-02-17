@@ -50,20 +50,6 @@ public abstract class RobotFunction implements NamedSendable {
     
     public void initTable(ITable table) {
         m_table = table;
-        /*if(table!=null) {
-            if (defaultCommand != null) {
-                table.putBoolean("hasDefault", true);
-                table.putString("default", defaultCommand.getName());
-            } else {
-                table.putBoolean("hasDefault", false);
-            }
-            if (currentCommand != null) {
-                table.putBoolean("hasCommand", true);
-                table.putString("command", currentCommand.getName());
-            } else {
-                table.putBoolean("hasCommand", false);
-            }
-        } */
         table.putBoolean("hasDefault", false);
         table.putBoolean("hasCommand", false);
     }

@@ -61,20 +61,6 @@ public class DriveTrain extends RobotFunction {
 		SmartDashboard.putNumber("Joystick Z Axis", Robot.jOi.getJoystick().getRawAxis(RobotMap.Z_AXIS));
 	}
 	
-	public void autoStart() {
-		/*m_robot.mecanumDrive_Cartesian(0, -1, 0, 0);
-		Timer.delay(50.0);		//    for 5 seconds
-		m_robot.drive(0.0, 0.0);	// stop robot*/
-	}
-	
-	public void autoPeriodic1() {
-		drive(0, -0.5, 0);
-	}
-	
-	public void autoPeriodic2() {
-		drive(0, 0.5, 0);
-	}
-	
 	
 	// *********************** HELPER FUNCTIONS **************************
 	
