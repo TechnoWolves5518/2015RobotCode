@@ -62,9 +62,17 @@ public class DriveTrain extends RobotFunction {
 	}
 	
 	public void autoStart() {
-		m_robot.drive(0.5, 0.0);	// drive forwards half speed w/ no turn
-		Timer.delay(5.0);		//    for 5 seconds
-		m_robot.drive(0.0, 0.0);	// stop robot
+		/*m_robot.mecanumDrive_Cartesian(0, -1, 0, 0);
+		Timer.delay(50.0);		//    for 5 seconds
+		m_robot.drive(0.0, 0.0);	// stop robot*/
+	}
+	
+	public void autoPeriodic1() {
+		drive(0, -0.5, 0);
+	}
+	
+	public void autoPeriodic2() {
+		drive(0, 0.5, 0);
 	}
 	
 	
@@ -82,6 +90,10 @@ public class DriveTrain extends RobotFunction {
 	 */
 	public void setSensitivity(double sensitivity) {
 		m_robot.setSensitivity(sensitivity);
+	}
+	
+	public void drive(double x, double y, double rotation) {
+		m_robot.mecanumDrive_Cartesian(x, y, rotation, 0);
 	}
 
 }

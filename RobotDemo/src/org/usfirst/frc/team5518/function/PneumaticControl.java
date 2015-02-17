@@ -54,7 +54,9 @@ public class PneumaticControl extends RobotFunction {
 		
 	}
 		 
-	
+	public void autonomous() {
+		m_solenoid.set(DoubleSolenoid.Value.kForward);
+	}
 
 	@Override
 	public void outputHandler() {

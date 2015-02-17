@@ -1,6 +1,8 @@
 
 package org.usfirst.frc.team5518.robot;
 
+import org.usfirst.frc.team5518.framework.AutonomousChooser;
+import org.usfirst.frc.team5518.framework.RobotFunction;
 import org.usfirst.frc.team5518.function.ArmElevator;
 import org.usfirst.frc.team5518.function.DriveTrain;
 import org.usfirst.frc.team5518.function.PneumaticControl;
@@ -9,8 +11,11 @@ import org.usfirst.frc.team5518.function.VisionTrack;
 
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.IterativeRobot;
+import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
@@ -36,6 +41,12 @@ public class Robot extends IterativeRobot {
 	private SensorTrack sensorTrack;
 	private VisionTrack visionTrack;
 	
+	private RobotFunction autonomousCommand;
+	private SendableChooser autoChooser;
+	
+	private double auto_sec;
+	private int autonomous_number;
+	
     public void robotInit() {
     	
     	xOi = new XControllerOI();  // Xbox controller button mapping
@@ -46,6 +57,13 @@ public class Robot extends IterativeRobot {
     	pneumaticControl = new PneumaticControl("PneumaticControl");
     	sensorTrack = new SensorTrack("SensorTrack");
     	visionTrack = new VisionTrack("VisionTrack");
+    	
+    	autoChooser = new SendableChooser();
+    	autoChooser.addDefault("Autonomous 1: Push",
+    			new AutonomousChooser(1));
+    	autoChooser.addObject("Autonomous 2: Pull ",
+    			new AutonomousChooser(2));
+    	SmartDashboard.putData("Autonomous Chooser", autoChooser);
     	
     	armElevator.initialize();
     	driveTrain.initialize();
@@ -61,6 +79,7 @@ public class Robot extends IterativeRobot {
     	SmartDashboard.putData(pneumaticControl);
     	SmartDashboard.putData(sensorTrack);
     	SmartDashboard.putData(visionTrack);
+    	SmartDashboard.putData("Autonomous Mode", autoChooser);
     	SmartDashboard.putData(Scheduler.getInstance());
     	
     }
@@ -78,14 +97,28 @@ public class Robot extends IterativeRobot {
 	}
     
     public void autonomousInit() {
+    	auto_sec = Timer.getFPGATimestamp();
+    	autonomous_number = ((AutonomousChooser) autoChooser.getSelected()).getNumber();
     	driveTrain.autoStart();
+    	pneumaticControl.autonomous();
+    	Timer.delay(1.0);
     }
 
     /**
      * This function is called periodically during autonomous
      */
     public void autonomousPeriodic() {
+    	
+    	double seconds = Timer.getFPGATimestamp();
+    	
+    	if ((seconds - auto_sec) < 3.25) {
+    		pneumaticControl.autonomous();
+    		armElevator.autoPeriodic();
+    		driveTrain.autoPeriodic2();
+		}
+    	
     	output();
+    	
     }
     
     public void teleopInit() {
@@ -131,6 +164,9 @@ public class Robot extends IterativeRobot {
     	pneumaticControl.outputHandler();
     	sensorTrack.outputHandler();
     	visionTrack.outputHandler();
+    	
+    	SmartDashboard.putNumber("System Clock", Timer.getFPGATimestamp());
+		SmartDashboard.putNumber("Autonomous Init", auto_sec);
     	
     }
     

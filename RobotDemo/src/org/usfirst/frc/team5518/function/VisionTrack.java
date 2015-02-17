@@ -29,10 +29,8 @@ public class VisionTrack extends RobotFunction {
 	@Override
 	public void start() {
 		
-		if (Robot.jOi.getJoystick().getRawButton(RobotMap.BTN_2)) {
-			NIVision.IMAQdxGrab(session, frame, 1);  // grab frame from session
-		    CameraServer.getInstance().setImage(frame);  // send frame to stream in SmartDashboard
-		}
+		NIVision.IMAQdxGrab(session, frame, 1);  // grab frame from session
+		CameraServer.getInstance().setImage(frame);  // send frame to stream in SmartDashboard
 		
 	}
 

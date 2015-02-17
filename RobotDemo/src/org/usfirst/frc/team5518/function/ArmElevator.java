@@ -7,6 +7,7 @@ import org.usfirst.frc.team5518.robot.RobotMap;
 import edu.wpi.first.wpilibj.Counter;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Encoder;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.Victor;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -19,6 +20,7 @@ public class ArmElevator extends RobotFunction {
 	private Counter max_counter;
 	private double victor_speed;
 	private int victor_state = 0;
+	private double auto_sec;
 
 	public ArmElevator(String name) {
 		super(name);
@@ -55,10 +57,25 @@ public class ArmElevator extends RobotFunction {
 			 }
 		}
 		
-		/*if (isMaxSwitchSet()) {
+		if (!m_maxLimit.get()) {
 			setVictorSpeed(0);
 			resetEncoder();
-		}*/
+		}
+		
+	}
+
+	public void autoStart() {
+		auto_sec = Timer.getFPGATimestamp();
+	}
+	
+	public void autoPeriodic() {
+		
+		double seconds = Timer.getFPGATimestamp();
+		
+		if ((seconds - auto_sec) < 2.0)
+			setVictorSpeed(0.4);
+		else
+			setVictorSpeed(0.08);
 		
 	}
 
@@ -75,9 +92,8 @@ public class ArmElevator extends RobotFunction {
 		SmartDashboard.putNumber("Encoder Distance", m_encoder.getDistance());
 		SmartDashboard.putNumber("Encoder Rate", m_encoder.getRate());
 		SmartDashboard.putNumber("Encoder Count", m_encoder.get());
-		SmartDashboard.putNumber("1-Max. Limit Switch", max_counter.get());
-		SmartDashboard.putBoolean("2-Max. Limit Switch", isMaxSwitchSet());
-		SmartDashboard.putBoolean("3-Max. Limit Switch", m_maxLimit.get());
+		SmartDashboard.putBoolean("Max. Limit Switch", m_maxLimit.get());
+		SmartDashboard.putNumber("Max. Switch Counter", max_counter.get());
 	}
 	
 	// *********************** HELPER FUNCTIONS **************************
@@ -91,7 +107,7 @@ public class ArmElevator extends RobotFunction {
 	public void setVictorSpeed(double speed) {
 		
 		if (speed == 0.0)  // if speed value is 0
-			this.victor_speed = 0.06;  // set a default value
+			this.victor_speed = 0.1;  // set a default value
 		else  // otherwise
 			this.victor_speed = speed;  // set the given value
 		
@@ -103,15 +119,6 @@ public class ArmElevator extends RobotFunction {
 	 */
 	public void resetEncoder() {
 		m_encoder.reset();  // reset the encoder
-	}
-	
-	/**
-	 * Return true or false if the maximum
-	 * or top limit switch is being hit.
-	 */
-	private boolean isMaxSwitchSet() {
-		// return true/valse for limit switch value
-		return max_counter.get() > 0;
 	}
 	
 }
