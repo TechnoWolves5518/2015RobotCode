@@ -67,6 +67,8 @@ public class Robot extends IterativeRobot {
     			new AutonomousChooser(3));
     	autoChooser.addObject("Autonomous 4: Pull w/ Hill", 
     			new AutonomousChooser(4));
+    	autoChooser.addObject("Autonomous 0: Do Nothing", 
+    			new AutonomousChooser(0));
     	SmartDashboard.putData("Autonomous Chooser", autoChooser);
     	
     	armElevator.initialize();
@@ -106,6 +108,8 @@ public class Robot extends IterativeRobot {
     	autonomous_number = ((AutonomousChooser) autoChooser.getSelected()).getNumber();
     	
     	switch (autonomous_number) {
+    	case 0:
+    		break;
     	case 1:
     	case 3:
     		autonomousSetup(false);
@@ -126,6 +130,8 @@ public class Robot extends IterativeRobot {
     	double seconds = Timer.getFPGATimestamp();
     	
     	switch (autonomous_number) {
+    	case 0:
+    		break;
     	case 1:
     		autonomousPush(seconds, 2.0);
     		break;

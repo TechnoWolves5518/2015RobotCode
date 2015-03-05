@@ -6,6 +6,7 @@ import org.usfirst.frc.team5518.robot.RobotMap;
 
 import com.ni.vision.NIVision;
 import com.ni.vision.NIVision.Image;
+import com.ni.vision.VisionException;
 
 import edu.wpi.first.wpilibj.CameraServer;
 
@@ -20,10 +21,14 @@ public class VisionTrack extends RobotFunction {
 
 	@Override
 	public void initialize() {
-		frame = NIVision.imaqCreateImage(NIVision.ImageType.IMAGE_RGB, 0);  // create the image frame for cam
-        session = NIVision.IMAQdxOpenCamera("cam0",
-                NIVision.IMAQdxCameraControlMode.CameraControlModeController);  // get reference to camera
-        NIVision.IMAQdxConfigureGrab(session);  // grab current streaming session
+		try {
+			frame = NIVision.imaqCreateImage(NIVision.ImageType.IMAGE_RGB, 0);  // create the image frame for cam
+			session = NIVision.IMAQdxOpenCamera("cam0",
+			        NIVision.IMAQdxCameraControlMode.CameraControlModeController);  // get reference to camera
+			NIVision.IMAQdxConfigureGrab(session);  // grab current streaming session
+		} catch (VisionException e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Override
