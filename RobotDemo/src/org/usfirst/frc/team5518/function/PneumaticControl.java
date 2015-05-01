@@ -30,10 +30,10 @@ public class PneumaticControl extends RobotFunction {
 	@Override
 	public void start() {
 		
-		if (Robot.xOi.getJoystick().getRawAxis(RobotMap.XBOX_LT_AXIS) > 0.5d) {  // if left trigger pressed more than halfway
+		if (Robot.xOi.getJoystick().getRawAxis(RobotMap.XBOX_RT_AXIS) > 0.5d) {  // if left trigger pressed more than halfway
 			// open solenoid valves to make pistons go forward
     		m_solenoid.set(DoubleSolenoid.Value.kForward);  
-    	} else if (Robot.xOi.getJoystick().getRawAxis(RobotMap.XBOX_LT_AXIS) <= 0.5d) {  // if left trigger pressed less or equal to halfway
+    	} else if (Robot.xOi.getJoystick().getRawAxis(RobotMap.XBOX_RT_AXIS) <= 0.5d) {  // if left trigger pressed less or equal to halfway
     		// open solenoid values to make pistons go backward
     		m_solenoid.set(DoubleSolenoid.Value.kReverse);  
     	} else {  // otherwise

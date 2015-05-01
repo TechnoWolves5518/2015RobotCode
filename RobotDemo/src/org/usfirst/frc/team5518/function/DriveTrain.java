@@ -11,7 +11,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class DriveTrain extends RobotFunction {
 	
-	public static final double kDefaultSensitivity = 0.75;
+	public static final double kDefaultSensitivity = 0.70;
 
 	private RobotDrive m_robot;
 	

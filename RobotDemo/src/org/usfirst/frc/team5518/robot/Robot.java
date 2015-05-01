@@ -39,7 +39,7 @@ public class Robot extends IterativeRobot {
 	private DriveTrain driveTrain;
 	private PneumaticControl pneumaticControl;
 	private SensorTrack sensorTrack;
-	private VisionTrack visionTrack;
+	//private VisionTrack visionTrack;
 	
 	private RobotFunction autonomousCommand;
 	private SendableChooser autoChooser;
@@ -56,7 +56,7 @@ public class Robot extends IterativeRobot {
     	driveTrain = new DriveTrain("DriveTrain");
     	pneumaticControl = new PneumaticControl("PneumaticControl");
     	sensorTrack = new SensorTrack("SensorTrack");
-    	visionTrack = new VisionTrack("VisionTrack");
+    	//visionTrack = new VisionTrack("VisionTrack");
     	
     	autoChooser = new SendableChooser();
     	autoChooser.addDefault("Autonomous 1: Push",
@@ -67,15 +67,15 @@ public class Robot extends IterativeRobot {
     			new AutonomousChooser(3));
     	autoChooser.addObject("Autonomous 4: Pull w/ Hill", 
     			new AutonomousChooser(4));
-    	autoChooser.addObject("Autonomous 0: Do Nothing", 
-    			new AutonomousChooser(0));
+    	autoChooser.addObject("Autonomous 5: Do Nothing", 
+    			new AutonomousChooser(5));
     	SmartDashboard.putData("Autonomous Chooser", autoChooser);
     	
     	armElevator.initialize();
     	driveTrain.initialize();
     	pneumaticControl.initialize();
     	sensorTrack.initialize();
-    	visionTrack.initialize();
+    	//visionTrack.initialize();
     	
     	driveTrain.setMaxPower(0.8);
     	driveTrain.setSensitivity(driveTrain.kDefaultSensitivity);
@@ -84,7 +84,7 @@ public class Robot extends IterativeRobot {
     	SmartDashboard.putData(driveTrain);
     	SmartDashboard.putData(pneumaticControl);
     	SmartDashboard.putData(sensorTrack);
-    	SmartDashboard.putData(visionTrack);
+    	//SmartDashboard.putData(visionTrack);
     	SmartDashboard.putData("Autonomous Mode", autoChooser);
     	SmartDashboard.putData(Scheduler.getInstance());
     	
@@ -95,7 +95,7 @@ public class Robot extends IterativeRobot {
      * You can use it to reset subsystems before shutting down.
      */
     public void disabledInit(){
-    	visionTrack.disabledInit();
+    	//visionTrack.disabledInit();
     }
     
     public void disabledPeriodic() {
@@ -108,15 +108,9 @@ public class Robot extends IterativeRobot {
     	autonomous_number = ((AutonomousChooser) autoChooser.getSelected()).getNumber();
     	
     	switch (autonomous_number) {
-    	case 0:
-    		break;
-    	case 1:
-    	case 3:
-    		autonomousSetup(false);
-    		break;
     	case 2:
     	case 4:
-    		autonomousSetup(true);
+    		autonomousSetup();
     		break;
     	}
     	
@@ -130,8 +124,6 @@ public class Robot extends IterativeRobot {
     	double seconds = Timer.getFPGATimestamp();
     	
     	switch (autonomous_number) {
-    	case 0:
-    		break;
     	case 1:
     		autonomousPush(seconds, 2.0);
     		break;
@@ -158,7 +150,7 @@ public class Robot extends IterativeRobot {
         // this line or comment it out.
     	
         armElevator.resetEncoder();
-        visionTrack.telopInit();
+        //visionTrack.telopInit();
     	
     }
 
@@ -175,7 +167,7 @@ public class Robot extends IterativeRobot {
     	driveTrain.start();
     	pneumaticControl.start();
     	sensorTrack.start();
-    	visionTrack.start();
+    	//visionTrack.start();
     	output();
     	
     }
@@ -199,13 +191,11 @@ public class Robot extends IterativeRobot {
     	
     }
     
-    private void autonomousSetup(boolean extra) {
+    private void autonomousSetup() {
     	
-    	if (extra) {
     		armElevator.autoStart();
         	pneumaticControl.autonomous();
         	Timer.delay(1.0);
-    	}
     	
     }
     
