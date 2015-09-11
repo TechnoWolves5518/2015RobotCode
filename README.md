@@ -1,5 +1,4 @@
 # 2015RobotCode
-Code for Awesome Robot
 
 <a href="http://www.technowolves.org/">Techno Wolves Website</a>
 
