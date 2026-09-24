@@ -41,7 +41,8 @@ public class Robot extends SampleRobot { // SampleRobot doesn't call functions p
     private RobotDrive myRobot;
     private PowerDistributionPanel pdp;
     private DoubleSolenoid solenoid;
-    private Compressor compressor;
+    private Compressor compressor; 
+    int all=5;
     
     private Joystick stick;
     private Button button;
